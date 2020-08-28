@@ -1,0 +1,219 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Controle de usuários",
+    "description": "Sistema para registro e controle de usuários.",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Autenticação",
+      "description": "APIs de autenticação e registro."
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "components": {
+    "securitySchemes": {
+        "JWT": {
+           "description": "",
+           "type": "apiKey",
+           "name": "Authorization",
+           "in": "header"
+        }
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth": {
+      "get": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Busca o usuário logado na aplicação.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Sessão inválida.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/auth/sign-up": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "description": "Registra um novo usuário.",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Dados de usuário para criação",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário registrado com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Erro na validação dos campos.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/auth/sign-in": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "description": "Autentica o usuário.",
+        "parameters": [
+          {
+            "name": "credentials",
+            "in": "body",
+            "description": "Credenciais do usuário.",
+            "schema": {
+              "$ref": "#/definitions/Credential"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário autenticado com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Usuário e/ou senha inválidos.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Credential": {
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Error": {
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "required": [
+        "email",
+        "password",
+        "name"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "logged_at": {
+          "type": "string"
+        }
+      }
+    },
+    "Phone": {
+      "required": [
+        "number",
+        "area_code"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "number": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "area_code": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "Phones": {
+      "type": "array",
+      "$ref": "#/definitions/Phone"
+    }
+  }
+}
