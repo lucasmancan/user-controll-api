@@ -17,6 +17,7 @@
   "dependencies": {
     "@types/swagger-ui-express": "^4.1.2",
     "@types/validator": "^13.1.0",
+    "@types/yamljs": "^0.2.31",
     "bcryptjs": "^2.4.3",
     "config": "^3.1.0",
     "cors": "^2.8.5",
@@ -27,7 +28,8 @@
     "mongoose": "^5.5.7",
     "request": "^2.88.0",
     "swagger-ui-express": "^4.1.4",
-    "validator": "^13.1.1"
+    "validator": "^13.1.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

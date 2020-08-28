@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Controle de usuários
+  description: Sistema para registro e controle de usuários.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+tags:
+  - name: Autenticação
+    description: APIs de autenticação e registro.
+components:
+  securitySchemes:
+    AuthHeader:        
+      type: apiKey
+      in: header       
+      name: Authorization     
+  schemas:
+    Credential:
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    Error:
+      properties:
+        message:
+          type: string
+    User:
+      required:
+        - email
+        - password
+        - name
+      properties:
+        _id:
+          type: string
+          uniqueItems: true
+        email:
+          type: string
+          uniqueItems: true
+        password:
+          type: string
+        name:
+          type: string
+        token:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        logged_at:
+          type: string
+        phones:
+          type: array
+    Phone:
+      required:
+        - number
+        - area_code
+      properties:
+        _id:
+          type: string
+          uniqueItems: true
+        number:
+          type: string
+          uniqueItems: true
+        area_code:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+paths:
+  /auth:
+    get:
+      tags:
+        - Autenticação
+      summary: Busca o usuário logado na aplicação.
+      security:
+        - AuthHeader: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Sessão inválida.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /auth/sign-up:
+    post:
+      tags:
+        - Autenticação
+      description: Registra um novo usuário.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        description: Dados de usuário para criação
+      responses:
+        "200":
+          description: Usuário registrado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Erro na validação dos campos.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /auth/sign-in:
+    post:
+      tags:
+        - Autenticação
+      description: Autentica o usuário.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Credential"
+        description: Credenciais do usuário.
+      responses:
+        "200":
+          description: Usuário autenticado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Usuário e/ou senha inválidos.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+servers:
+  - url: /api/v1

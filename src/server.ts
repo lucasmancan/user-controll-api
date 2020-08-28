@@ -5,8 +5,10 @@ import connectDB from "../config/database";
 import user from "./routes/api/user";
 const cors = require("cors");
 import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 
-const swaggerDocument = require('../../swagger.json');
+// const swaggerDocument = require('../../swagger.json');
+const swaggerDocument = YAML.load('./swagger.yaml')
 
 const app = express();
 
@@ -19,7 +21,7 @@ app.set("port", process.env.PORT || 5000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/v1/auth", user);
 
 const port = app.get("port");
