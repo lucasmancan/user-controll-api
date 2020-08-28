@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 
 app.use(function(req, res, next) {
   res.status(404);
-  res.send('Ooops.. this is not a valid route, check api docs: /api-docs');
+  res.json({message:'Ooops.. this is not a valid route, check api docs: /api-docs'});
 });
 
 const server = app.listen(port, () =>
