@@ -19,14 +19,7 @@ app.set("port", process.env.PORT || 5000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-var options = {
-  explorer: true,
-  swaggerOptions: {
-    authAction :{ JWT: {name: "JWT", schema: {type: "apiKey", in: "header", name: "Authorization", description: ""}, value: "Bearer <JWT>"} }
-  }
-};
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/v1/auth", user);
 
 const port = app.get("port");
