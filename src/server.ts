@@ -7,7 +7,6 @@ const cors = require("cors");
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
-// const swaggerDocument = require('../../swagger.json');
 const swaggerDocument = YAML.load('./swagger.yaml')
 
 const app = express();
@@ -39,6 +38,12 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept, x-access-token, Authorization");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
+});
+
+
+app.use(function(req, res, next) {
+  res.status(404);
+  res.send('Ooops.. this is not a valid route, check api docs: /api-docs');
 });
 
 const server = app.listen(port, () =>

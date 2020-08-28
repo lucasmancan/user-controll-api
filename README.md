@@ -57,6 +57,9 @@ cd /user-controll-api
 #Instalação das dependências
 npm i
 
+#Rodando os testes
+npm run test
+
 #Inciando o servidor de desenvolvimento
 npm run server
 ```
