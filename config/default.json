@@ -1,5 +1,5 @@
 {
-  "mongoURI": "<replace with your connection>",
+  "mongoURI": "mongodb+srv://root:l11bHomB4mY0tDkA@cluster0.yfuy1.mongodb.net/sky-challenge?retryWrites=true&w=majority",
   "jwtSecret": "jwtSecretToken",
   "jwtExpiration": 1800
 }
