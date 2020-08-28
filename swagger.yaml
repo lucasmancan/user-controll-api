@@ -53,8 +53,6 @@ components:
           type: string
         logged_at:
           type: string
-        phones:
-          type: array
     Phone:
       required:
         - number
