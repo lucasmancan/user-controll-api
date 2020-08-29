@@ -61,6 +61,14 @@ npm i
 npm run test
 
 #Inciando o servidor de desenvolvimento
+
+/config/default.json
+{
+  "mongoURI": "<Digite uma connection string válida>",
+  "jwtSecret": "jwtSecretToken",
+  "jwtExpiration": 1800
+}
+
 npm run server
 ```
 
