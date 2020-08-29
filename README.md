@@ -62,7 +62,7 @@ npm run test
 
 #Inciando o servidor de desenvolvimento
 
-/config/default.json
+./config/default.json
 {
   "mongoURI": "<Digite uma connection string válida>",
   "jwtSecret": "jwtSecretToken",
